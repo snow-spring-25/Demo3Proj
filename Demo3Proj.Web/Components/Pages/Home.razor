@@ -1,7 +1,23 @@
 ﻿@page "/"
+@using Demo3Proj.Logic
 
 <PageTitle>Home</PageTitle>
 
-<h1>Hello, world!</h1>
+<h1>Counter Value: @(SharedMemory.CounterValue + 5)</h1>
+<h1>Number of assignments: @SharedMemory.Assignments.Count</h1>
+<button @onclick=addAssignment>Add Assignment</button>
 
-Welcome to your new app.
+@foreach(var assignment in SharedMemory.Assignments)
+{
+    <p>@assignment.Class : @assignment.Title</p>
+}
+
+@code
+{
+    string computed = $"Counter Value: {SharedMemory.CounterValue + 5}";
+
+    void addAssignment()
+    {        
+        SharedMemory.AddAssignment();
+    }
+}
